@@ -3,12 +3,6 @@ The game presents players with a sequence of colored tiles that light up on a 4Ã
 
 
 
-
-
-Yes, I can now generate the **final, full-fledged README** file. This version incorporates all the updates and instructions required for both the advanced cognitive features ($\text{GameLogic.py}$ changes) and the essential steps for running the separated frontend/backend architecture, including the necessary Python commands.
-
------
-
 # ðŸ§  Cogni-Quest: The Advanced Cognitive Sequence Recall Game
 
 [](https://www.python.org/)
