@@ -49,7 +49,7 @@ This project is built entirely in Python. You will need **Python 3.9+**.
 
     ```bash
     git clone https://github.com/YourUsername/cogni-quest.git
-    cd cogni-quest
+    cd The-Cognitive-Sequence-Recall-Game
     ```
 
 2.  **Set up Virtual Environment (Recommended):**
