@@ -157,8 +157,12 @@ def main_loop():
             if keys[pygame.K_ESCAPE]:
                  running = False
             
-            # Submit score to Flask backend (uncomment when running backend)
-            # requests.post('http://localhost:5000/api/submit_score', json={'player_id': 'Player1', 'score': game.score})
+        # Submit score to Flask backend
+            try:
+                 requests.post('http://127.0.0.1:5000/api/submit_score', json={'player_id': 'Player1', 'score': game.score})
+                 print("Score submitted to backend.")
+            except requests.exceptions.ConnectionError:
+                 print("Could not connect to Flask backend. Score not saved.")
 
         pygame.display.flip()
 
