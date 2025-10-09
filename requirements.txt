@@ -1,0 +1,20 @@
+# Dependencies for the Cogni-Quest Python game.
+
+# --------------------------
+# Frontend (Pygame Client)
+# --------------------------
+# Pygame is required for the main game interface and graphics.
+pygame
+
+# --------------------------
+# Backend (Flask API)
+# --------------------------
+# Flask is required to run the lightweight server/API for score management.
+Flask
+
+# --------------------------
+# Client-Server Communication
+# --------------------------
+# The Pygame client uses 'requests' to communicate with the Flask API (submit_score).
+requests
+
