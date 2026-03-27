@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, send_from_directory
 import sqlite3
 import datetime
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 DB_NAME = 'cogni_quest_scores.db'
 
 def init_db():
@@ -59,9 +60,33 @@ def get_highscores(player_id):
         "improvement_metric": f"{improvement:.2f} difference from average"
     })
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/api/global_highscores', methods=['GET'])
+def global_highscores():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    # Fetch top 10 scores from all players
+    cursor.execute("SELECT player_id, score, date FROM scores ORDER BY score DESC, date DESC LIMIT 10")
+    scores = cursor.fetchall()
+    conn.close()
+    
+    results = [{"player_id": s[0], "score": s[1], "date": s[2]} for s in scores]
+    return jsonify({"results": results})
+
+@app.route('/download')
+def download():
+    # Placeholder for the future executable
+    return "Download coming soon! Run 'python build_exe.py' to generate your local version."
+
 if __name__ == '__main__':
     init_db()
-    # For a real application, you'd run this server on a network and the Pygame client
-    # would make HTTP requests to it.
-    # app.run(debug=True, port=5000)
-    print("Flask Backend is set up. Run Pygame client separately.")
+    # Ensure templates and static folders exist if not created by tools
+    if not os.path.exists('templates'): os.makedirs('templates')
+    if not os.path.exists('static'): os.makedirs('static')
+    
+    print("Cogni-Quest Backend is ready.")
+    print("Serving on http://127.0.0.1:5000")
+    app.run(debug=True, port=5000)

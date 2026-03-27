@@ -1,0 +1,207 @@
+:root {
+    --primary: #00f2fe;
+    --secondary: #4facfe;
+    --accent: #f093fb;
+    --background: #0a0e17;
+    --surface: rgba(255, 255, 255, 0.05);
+    --text: #ffffff;
+    --text-muted: #a0a0a0;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Background Gradients */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, #1a2a44 0%, transparent 70%);
+    z-index: -1;
+    animation: pulse 15s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header & Hero */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.hero {
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to bottom, #fff, #888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto 3rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #000;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.5);
+}
+
+/* Glass Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 242, 254, 0.3);
+    transform: translateY(-10px);
+}
+
+.glass-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    background: linear-gradient(45deg, var(--accent), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glass-card h3 {
+     font-size: 1.5rem;
+     margin-bottom: 1rem;
+}
+
+.glass-card p {
+    color: var(--text-muted);
+}
+
+/* Leaderboard Section */
+.leaderboard {
+    margin-top: 8rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    padding: 4rem;
+    text-align: center;
+}
+
+.leaderboard h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.score-table th {
+    text-align: left;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.score-table td {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 1.1rem;
+}
+
+.rank-1 { color: #ffd700; font-weight: 800; }
+.rank-2 { color: #c0c0c0; font-weight: 800; }
+.rank-3 { color: #cd7f32; font-weight: 800; }
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 8rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 3rem; }
+    .hero p { font-size: 1.1rem; }
+    .leaderboard { padding: 2rem; }
+}

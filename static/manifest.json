@@ -1,0 +1,21 @@
+{
+  "name": "Cogni-Quest Advanced",
+  "short_name": "Cogni-Quest",
+  "description": "Advanced Cognitive Sequence Recall Game for Fluid Intelligence training.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#00f2fe",
+  "icons": [
+    {
+      "src": "/static/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
