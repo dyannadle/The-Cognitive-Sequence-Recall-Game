@@ -11,15 +11,25 @@ class CogniQuestLogic:
         self.base_speed = 1.0
         
         # New State Variables for Advanced Modes
-        self.current_mode = "RECALL" # RECALL, TRANSFORM, PREDICT
+        self.current_mode = "RECALL" # RECALL, TRANSFORM, PREDICT, MIRROR, DOUBLE
         self.correct_target_sequence = []
-        self.transformation_rule = None
+        self.transformation_rule = "" # Initialize as empty string instead of None
+        
+        # New Mechanics
+        self.lives = 3
+        self.combo_multiplier = 1.0
+        self.consecutive_correct = 0
+        self.powerups = {"SHIELD": 0, "SLOW_MO": 0, "HINT": 0}
+        self.active_slow_mo = False
+        self.shield_active = False
+        self.last_predicted_tile = -1 # For PREDICT mode
 
         # Define Transformation Rules
         self.TRANSFORM_RULES = {
             "REVERSE": "Recall the sequence in reverse order.",
-            "ODD_EVEN_SWAP": "Swap the position of the tile with its index (0, 1, 2, 3...) parity.", # Simple Rule for example
-            "TILE_SORT": "Recall the tiles sorted by their number (smallest to largest)."
+            "ODD_EVEN_SWAP": "Swap adjacent tile pairs (0-1, 2-3...).", 
+            "TILE_SORT": "Recall tiles sorted by their number.",
+            "MIRROR": "Mentally flip the grid horizontally."
         }
 
     def generate_next_sequence(self):
@@ -37,17 +47,30 @@ class CogniQuestLogic:
         elif 5 <= self.score < 10:
             self.current_mode = "RECALL" # Pure recall challenge, faster
         elif 10 <= self.score < 15:
-            # Introduce Transformation Recall
             self.current_mode = "TRANSFORM"
             self.transformation_rule = random.choice(list(self.TRANSFORM_RULES.keys()))
-            sequence_length = max(4, sequence_length - 1) # Keep transform sequences slightly shorter
-        else: # Score 15+
-            # Introduce Pattern Prediction
+            sequence_length = max(4, sequence_length - 1)
+        elif 15 <= self.score < 20:
+            self.current_mode = "MIRROR"
+            sequence_length = 5
+        elif 20 <= self.score < 25:
+            self.current_mode = "DOUBLE" # Challenge: 2 tiles at once
+            sequence_length = 8 # Will flash in pairs
+        else: # Score 25+
             self.current_mode = "PREDICT"
-            sequence_length = 6 # Fixed length for predictability test
+            sequence_length = 6
+        
+        # Add powerups occasionally
+        if self.score % 7 == 0:
+            p = random.choice(list(self.powerups.keys()))
+            self.powerups[p] += 1
 
         # Generate the Base Sequence
-        self.current_sequence = [random.randint(0, self.tile_count - 1) for _ in range(sequence_length)]
+        if self.current_mode == "DOUBLE":
+            # For DOUBLE mode, we still generate a single list but treat pairs as simultaneous
+            self.current_sequence = [random.randint(0, self.tile_count - 1) for _ in range(sequence_length)]
+        else:
+            self.current_sequence = [random.randint(0, self.tile_count - 1) for _ in range(sequence_length)]
         
         # Adjust sequence for PREDICT mode
         if self.current_mode == "PREDICT":
@@ -56,21 +79,31 @@ class CogniQuestLogic:
         # Calculate the target sequence based on the mode
         self.correct_target_sequence = self._apply_transformation(self.current_sequence)
 
-        return self.current_sequence, self.base_speed
+        effective_speed = self.base_speed * (1.5 if self.active_slow_mo else 1.0)
+        self.active_slow_mo = False # Reset after generation
+        
+        return self.current_sequence, effective_speed
+
+    def use_powerup(self, p_type):
+        if self.powerups.get(p_type, 0) > 0:
+            self.powerups[p_type] -= 1
+            if p_type == "SLOW_MO": self.active_slow_mo = True
+            elif p_type == "SHIELD": self.shield_active = True
+            return True
+        return False
 
     def _inject_pattern(self, seq):
         """Creates a recognizable, *predictable* sub-pattern for PREDICT mode."""
-        # This is a simple repeating pattern logic (e.g., A-B-C-A-B-C)
         pattern_length = 3
+        base_pattern = [random.randint(0, self.tile_count - 1) for _ in range(pattern_length)]
         
-        # 1. Create a 3-tile base pattern
-        base_pattern = random.sample(range(self.tile_count), pattern_length)
+        # Repeat the pattern
+        new_seq = (base_pattern * (len(seq) // pattern_length + 1))
         
-        # 2. Repeat the pattern to fill the sequence
-        new_seq = (base_pattern * (len(seq) // pattern_length))
+        # The tile to predict is the one shifted by the current length
+        self.last_predicted_tile = new_seq[len(seq)-1]
         
-        # 3. Cut the sequence so the last tile is missing (the one to predict)
-        return new_seq[:-1] 
+        return new_seq[:len(seq)-1]
 
     def _apply_transformation(self, seq):
         """Applies the current transformation rule to the sequence."""
@@ -82,10 +115,20 @@ class CogniQuestLogic:
             return list(reversed(seq))
         
         elif self.transformation_rule == "TILE_SORT":
-            # Sorts the tile numbers (0-15) regardless of their position
             return sorted(seq)
+
+        elif self.transformation_rule == "MIRROR":
+            # Flip horizontally: col -> (grid_size - 1 - col)
+            mirrored = []
+            for t in seq:
+                row, col = divmod(t, self.grid_size)
+                mirrored.append(row * self.grid_size + (self.grid_size - 1 - col))
+            return mirrored
         
-        # Default fallback
+        elif self.transformation_rule == "ODD_EVEN_SWAP":
+            # Simple swap of adjacent pairs (0<->1, 2<->3...)
+            return [t+1 if t%2==0 else t-1 for t in seq]
+        
         return seq
 
     def check_player_input(self, player_input):
@@ -109,27 +152,37 @@ class CogniQuestLogic:
             # For simplicity here, we assume the prediction is the next expected tile in the full sequence.
             # *CRITICAL UPDATE: To correctly check prediction, the missing tile must be known.*
             
-            # For now, let's keep the logic simple: Prediction is checked against the last element
-            # of the *full* sequence that would have been generated (which is NOT the target seq).
-            # This requires a slight modification to how patterns are generated/stored.
+            # The missing tile was stored during generation
+            is_correct = predicted_tile == self.last_predicted_tile
             
-            # --- SIMPLIFIED PREDICT CHECK (Requires Frontend change) ---
-            # Let's assume the frontend will only allow 1 click in PREDICT mode.
-            # We need the base pattern to determine the next tile.
-            # **TO BE ROBUST, _inject_pattern should return the full sequence and the prediction tile.**
-            
-            # For this code, let's simplify and say if they reach PREDICT, they always predict '0' as the next tile.
-            # This is only a placeholder; the robust logic is detailed below.
-            
-            # Placeholder Logic: Player must predict the first tile (index 0) of the *base* sequence (not shown)
-            # This is flawed, so let's use the robust approach below:
-            
-            # --- ROBUST PREDICT CHECK Placeholder ---
-            if predicted_tile == self.last_predicted_tile:
-                 return True
+            if is_correct:
+                self.consecutive_correct += 1
+                self.combo_multiplier = min(5.0, self.combo_multiplier + 0.5)
+                self.score += int(50 * self.combo_multiplier) # Predict is worth more
             else:
-                 return False
+                self.lives -= 1
+                self.consecutive_correct = 0
+                self.combo_multiplier = 1.0
+            return is_correct
 
         
-        # --- RECALL/TRANSFORM Check ---
-        return player_input == self.correct_target_sequence
+        # --- RECALL/TRANSFORM/MIRROR Check ---
+        is_correct = player_input == self.correct_target_sequence
+
+        if is_correct:
+            self.consecutive_correct += 1
+            if self.consecutive_correct >= 3:
+                self.combo_multiplier = min(5.0, self.combo_multiplier + 0.5)
+            self.score += int(10 * self.combo_multiplier)
+        else:
+            if self.shield_active:
+                self.shield_active = False
+                print("Shield Blocked Mistake!")
+                return True # Treat as correct but lose shield
+            
+            self.lives -= 1
+            self.consecutive_correct = 0
+            self.combo_multiplier = 1.0
+            if self.lives < 0: self.lives = 0
+            
+        return is_correct
