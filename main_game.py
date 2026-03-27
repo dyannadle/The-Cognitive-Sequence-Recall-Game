@@ -62,6 +62,7 @@ def main_loop():
     running = True
     state = "SHOWING_SEQUENCE" # SHOWING_SEQUENCE, AWAITING_INPUT, GAME_OVER
     player_input = []
+    score_submitted = False
     
     while running:
         # --- Handle Pygame Events ---
@@ -147,22 +148,27 @@ def main_loop():
                  screen.blit(input_prompt, input_prompt.get_rect(center=(SCREEN_WIDTH // 2, 50)))
 
         elif state == "GAME_OVER":
-            over_text = FONT_LARGE.render("GAME OVER! Press ESC to Exit.", True, (255, 0, 0))
+            over_text = FONT_LARGE.render("GAME_OVER! Press ESC to Exit.", True, (255, 0, 0))
             score_final = FONT_LARGE.render(f"FINAL SCORE: {game.score}", True, (255, 255, 255))
             screen.blit(over_text, over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50)))
             screen.blit(score_final, score_final.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)))
+            
+            # Submit score only once
+            if not score_submitted:
+                try:
+                    requests.post('http://127.0.0.1:5000/api/submit_score', 
+                                  json={'player_id': 'Player1', 'score': game.score},
+                                  timeout=2)
+                    print(f"Score ({game.score}) submitted to backend.")
+                    score_submitted = True
+                except requests.exceptions.RequestException:
+                    print("Could not connect to Flask backend. Score not saved.")
+                    score_submitted = True # Don't retry every frame if it fails
             
             # Check for ESC key press to quit in GAME_OVER state
             keys = pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
                  running = False
-            
-        # Submit score to Flask backend
-            try:
-                 requests.post('http://127.0.0.1:5000/api/submit_score', json={'player_id': 'Player1', 'score': game.score})
-                 print("Score submitted to backend.")
-            except requests.exceptions.ConnectionError:
-                 print("Could not connect to Flask backend. Score not saved.")
 
         pygame.display.flip()
 
