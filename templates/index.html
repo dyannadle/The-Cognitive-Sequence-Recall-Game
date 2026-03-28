@@ -1,118 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html> <!-- Define the document type as HTML5 -->
+<html lang="en"> <!-- Set the primary language of the document to English -->
+<head> <!-- Container for metadata and external resource links -->
+    <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 for universal character support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure responsive scaling on mobile devices -->
     
     <!-- Primary Meta Tags -->
-    <title>Cogni-Quest | Advanced Cognitive Sequence Recall Game</title>
-    <meta name="title" content="Cogni-Quest | Advanced Cognitive Sequence Recall Game">
-    <meta name="description" content="Train your working memory, pattern recognition, and cognitive flexibility with Cogni-Quest. The advanced sequence recall game for fluid intelligence training.">
-    <meta name="keywords" content="Cognitive Game, Sequence Recall, Brain Training, Fluid Intelligence, Pygame, Python Game, Memory Training">
+    <title>Cogni-Quest | Advanced Cognitive Sequence Recall Game</title> <!-- The page title shown in browser tabs -->
+    <meta name="title" content="Cogni-Quest | Advanced Cognitive Sequence Recall Game"> <!-- Explicit title meta for various search engines -->
+    <meta name="description" content="Train your working memory, pattern recognition, and cognitive flexibility with Cogni-Quest. The advanced sequence recall game for fluid intelligence training."> <!-- Brief summary for search result snippets -->
+    <meta name="keywords" content="Cognitive Game, Sequence Recall, Brain Training, Fluid Intelligence, Pygame, Python Game, Memory Training"> <!-- Search keywords for indexing -->
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cogni-quest.app/">
-    <meta property="og:title" content="Cogni-Quest | Training Fluid Intelligence">
-    <meta property="og:description" content="Challenge your brain with advanced cognitive modes: RECALL, TRANSFORM, and PREDICT.">
-    <meta property="og:image" content="/static/og-image.png">
+    <meta property="og:type" content="website"> <!-- Identifies the content type for social media platforms -->
+    <meta property="og:url" content="https://cogni-quest.app/"> <!-- Canonical URL for the application -->
+    <meta property="og:title" content="Cogni-Quest | Training Fluid Intelligence"> <!-- Title for social shares -->
+    <meta property="og:description" content="Challenge your brain with advanced cognitive modes: RECALL, TRANSFORM, and PREDICT."> <!-- Description for social shares -->
+    <meta property="og:image" content="/static/og-image.png"> <!-- URL to the preview image for social shares -->
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Cogni-Quest | Advanced Cognitive Game">
-    <meta property="twitter:description" content="Rigorously train your working memory and pattern recognition.">
+    <meta property="twitter:card" content="summary_large_image"> <!-- Use a large image card for Twitter previews -->
+    <meta property="twitter:title" content="Cogni-Quest | Advanced Cognitive Game"> <!-- Twitter-specific share title -->
+    <meta property="twitter:description" content="Rigorously train your working memory and pattern recognition."> <!-- Twitter-specific share description -->
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconnect for font assets -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet"> <!-- Import the 'Outfit' font family -->
     
     <!-- Styles -->
-    <link rel="stylesheet" href="/static/style.css">
-    <link rel="manifest" href="/static/manifest.json">
-    <link rel="icon" type="image/png" href="/static/favicon.png">
+    <link rel="stylesheet" href="/static/style.css"> <!-- Link to the main external CSS stylesheet -->
+    <link rel="manifest" href="/static/manifest.json"> <!-- Link to the PWA manifest for 'Add to Home Screen' support -->
+    <link rel="icon" type="image/png" href="/static/favicon.png"> <!-- URL to the site's favicon -->
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">COGNI_QUEST</div>
-            <nav>
-                <a href="#leaderboard" class="cta-button" style="padding: 0.8rem 2rem; font-size: 0.9rem;">View Leaders</a>
+<body> <!-- Main content container -->
+    <div class="container"> <!-- Wrapper to center content and limit maximum width -->
+        <header> <!-- Top section of the page containing logo and navigation -->
+            <div class="logo">COGNI_QUEST</div> <!-- Stylized text logo for the brand -->
+            <nav> <!-- Navigation container -->
+                <a href="#leaderboard" class="cta-button" style="padding: 0.8rem 2rem; font-size: 0.9rem;">View Leaders</a> <!-- Link to scroll to the leaderboard -->
             </nav>
         </header>
 
-        <section class="hero">
-            <h1>Master Your <br><span style="color: var(--primary);">Working Memory</span></h1>
-            <p>Cogni-Quest is more than a game. It's a rigorous training environment designed to enhance pattern recognition and cognitive flexibility through high-speed sequence processing.</p>
-            <div class="hero-actions">
-                <a href="/download" class="cta-button">Download Game Client</a>
-                <p style="margin-top: 1rem; font-size: 0.9rem;">Available for Windows (v1.0.4)</p>
+        <section class="hero"> <!-- Primary impact section for the landing page -->
+            <h1>Master Your <br><span style="color: var(--primary);">Working Memory</span></h1> <!-- Main heading with accent color -->
+            <p>Cogni-Quest is more than a game. It's a rigorous training environment designed to enhance pattern recognition and cognitive flexibility through high-speed sequence processing.</p> <!-- Value proposition description -->
+            <div class="hero-actions"> <!-- Container for primary calls to action -->
+                <a href="/download" class="cta-button">Download Game Client</a> <!-- Main download link -->
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Available for Windows (v1.0.4)</p> <!-- Versioning and platform info -->
             </div>
         </section>
 
-        <div class="card-grid">
-            <div class="glass-card">
-                <i>🧠</i>
-                <h3>Transformation Mode</h3>
-                <p>Don't just repeat. Mentally manipulate sequences in real-time. Reverse, sort, and reorder on the fly.</p>
+        <div class="card-grid"> <!-- Grid for displaying feature/benefit cards -->
+            <div class="glass-card"> <!-- Benefit 1: Transformation Mode -->
+                <i>🧠</i> <!-- Emoji icon for brain/cognitive focus -->
+                <h3>Transformation Mode</h3> <!-- Mode highlight -->
+                <p>Don't just repeat. Mentally manipulate sequences in real-time. Reverse, sort, and reorder on the fly.</p> <!-- Description of the mechanics -->
             </div>
-            <div class="glass-card">
-                <i>✨</i>
-                <h3>Inductive Reasoning</h3>
-                <p>Identify complex mathematical and visual patterns to predict the next logical step in the sequence.</p>
+            <div class="glass-card"> <!-- Benefit 2: Inductive Reasoning -->
+                <i>✨</i> <!-- Visual icon -->
+                <h3>Inductive Reasoning</h3> <!-- Reasoning highlight -->
+                <p>Identify complex mathematical and visual patterns to predict the next logical step in the sequence.</p> <!-- Description of the PREDICT mode -->
             </div>
-            <div class="glass-card">
-                <i>📊</i>
-                <h3>Live Analytics</h3>
-                <p>Your performance is tracked and analyzed by our backend to provide a dynamic intelligence curve.</p>
+            <div class="glass-card"> <!-- Benefit 3: Live Analytics -->
+                <i>📊</i> <!-- Visual icon for data -->
+                <h3>Live Analytics</h3> <!-- Analytics highlight -->
+                <p>Your performance is tracked and analyzed by our backend to provide a dynamic intelligence curve.</p> <!-- Description of the leaderboard integration -->
             </div>
         </div>
 
-        <section id="leaderboard" class="leaderboard">
-            <h2>Global Leaderboard</h2>
-            <div id="leaderboard-container">
-                <p>Loading high scores...</p>
+        <section id="leaderboard" class="leaderboard"> <!-- Leaderboard section -->
+            <h2>Global Leaderboard</h2> <!-- Section heading -->
+            <div id="leaderboard-container"> <!-- Target container for dynamic JavaScript injection -->
+                <p>Loading high scores...</p> <!-- Temporary placeholder text -->
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2026 Cogni-Quest Dev Team. Built with Python, Flask, and Passion.</p>
+        <footer> <!-- Bottom of the page -->
+            <p>&copy; 2026 Cogni-Quest Dev Team. Built with Python, Flask, and Passion.</p> <!-- Copyright and credits -->
         </footer>
     </div>
 
-    <script>
-        async function fetchLeaderboard() {
-            try {
-                const response = await fetch('/api/global_highscores');
-                const data = await response.json();
-                const container = document.getElementById('leaderboard-container');
+    <script> <!-- Local JavaScript for dynamic leaderboard fetching -->
+        async function fetchLeaderboard() { // Asynchronous function to hit the API
+            try { // Error handling block
+                const response = await fetch('/api/global_highscores'); // Fetch data from the Flask API endpoint
+                const data = await response.json(); // Parse the response as JSON
+                const container = document.getElementById('leaderboard-container'); // Get the target DOM element
                 
-                if (data.results && data.results.length > 0) {
+                if (data.results && data.results.length > 0) { // Check if any scores exist
+                    // Build an HTML table string
                     let html = '<table class="score-table"><thead><tr><th>Rank</th><th>Player</th><th>Score</th><th>Date</th></tr></thead><tbody>';
-                    data.results.forEach((row, index) => {
+                    data.results.forEach((row, index) => { // Iterate through each high score entry
                         html += `
                             <tr>
-                                <td class="rank-${index + 1}">#${index + 1}</td>
-                                <td>${row.player_id}</td>
-                                <td>${row.score}</td>
-                                <td>${new Date(row.date).toLocaleDateString()}</td>
+                                <td class="rank-${index + 1}">#${index + 1}</td> <!-- Add rank-specific CSS class -->
+                                <td>${row.player_id}</td> <!-- Display player name -->
+                                <td>${row.score}</td> <!-- Display score value -->
+                                <td>${new Date(row.date).toLocaleDateString()}</td> <!-- Format and display date -->
                             </tr>
                         `;
                     });
-                    html += '</tbody></table>';
-                    container.innerHTML = html;
-                } else {
-                    container.innerHTML = '<p>No scores yet. Be the first to play!</p>';
+                    html += '</tbody></table>'; // Close the table tags
+                    container.innerHTML = html; // Inject the constructed HTML into the page
+                } else { // If no scores are found
+                    container.innerHTML = '<p>No scores yet. Be the first to play!</p>'; // Show empty state message
                 }
-            } catch (error) {
-                console.error('Error fetching leaderboard:', error);
-                document.getElementById('leaderboard-container').innerHTML = '<p>Offline scores available in client.</p>';
+            } catch (error) { // If the API call fails
+                console.error('Error fetching leaderboard:', error); // Log the error to browser console
+                document.getElementById('leaderboard-container').innerHTML = '<p>Offline scores available in client.</p>'; // Show error message to user
             }
         }
 
-        fetchLeaderboard();
-        // Refresh every 30 seconds
-        setInterval(fetchLeaderboard, 30000);
+        fetchLeaderboard(); // Initial call to load data when page finishes loading
+        // Refresh every 30 seconds to keep the leaderboard live
+        setInterval(fetchLeaderboard, 30000); 
     </script>
 </body>
 </html>

@@ -1,207 +1,209 @@
-:root {
-    --primary: #00f2fe;
-    --secondary: #4facfe;
-    --accent: #f093fb;
-    --background: #0a0e17;
-    --surface: rgba(255, 255, 255, 0.05);
-    --text: #ffffff;
-    --text-muted: #a0a0a0;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+:root { /* Define global CSS variables (design tokens) for consistent branding */
+    --primary: #00f2fe; /* Bright cyan for primary elements and highlights */
+    --secondary: #4facfe; /* Deep blue for gradients and secondary actions */
+    --accent: #f093fb; /* Neon pink for visual flair and accent markers */
+    --background: #0a0e17; /* Very dark navy for the main page backdrop */
+    --surface: rgba(255, 255, 255, 0.05); /* Semi-transparent white for 'glass' surface effects */
+    --text: #ffffff; /* Pure white for high-contrast primary text */
+    --text-muted: #a0a0a0; /* Grey for secondary, less important text */
+    --glass: rgba(255, 255, 255, 0.03); /* Faint white for delicate glass backgrounds */
+    --glass-border: rgba(255, 255, 255, 0.1); /* Subtle border for glassmorphism panels */
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); /* Deep shadow for depth and elevation */
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
+* { /* Reset and global styles for every element */
+    margin: 0; /* Remove default browser margins */
+    padding: 0; /* Remove default browser padding */
+    box-sizing: border-box; /* Ensure padding/border is included in element dimensions */
+    font-family: 'Outfit', sans-serif; /* Use the premium 'Outfit' font for everything */
 }
 
-body {
-    background-color: var(--background);
-    color: var(--text);
-    overflow-x: hidden;
-    line-height: 1.6;
+body { /* Main body styles */
+    background-color: var(--background); /* Use the defined dark background color */
+    color: var(--text); /* Set default text color to white */
+    overflow-x: hidden; /* Prevent horizontal scrolling from animations */
+    line-height: 1.6; /* Comfortable line spacing for readability */
 }
 
-/* Background Gradients */
-body::before {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at center, #1a2a44 0%, transparent 70%);
-    z-index: -1;
-    animation: pulse 15s infinite alternate;
+/* Background Gradients: Creates a subtle, pulsing ambient light effect */
+body::before { /* Pseudo-element for the animated glow background */
+    content: ''; /* Required for pseudo-elements */
+    position: fixed; /* Keep it fixed so it doesn't move when scrolling */
+    top: -50%; /* Center the large glow */
+    left: -50%; /* Center the large glow */
+    width: 200%; /* Make glow much larger than the viewport */
+    height: 200%; /* Make glow much larger than the viewport */
+    background: radial-gradient(circle at center, #1a2a44 0%, transparent 70%); /* Inner blue glow fading to transparent */
+    z-index: -1; /* Place it behind all other content */
+    animation: pulse 15s infinite alternate; /* Trigger the scaling/opacity pulse animation */
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.5; }
-    100% { transform: scale(1.1); opacity: 0.8; }
+@keyframes pulse { /* Pulse animation definition */
+    0% { transform: scale(1); opacity: 0.5; } /* Start state: normal size, half visible */
+    100% { transform: scale(1.1); opacity: 0.8; } /* End state: slightly larger, more visible */
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+.container { /* Main centered layout wrapper */
+    max-width: 1200px; /* Limit maximum width for large monitors */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 2rem; /* Add breathing room on the sides */
 }
 
-/* Header & Hero */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 0;
+/* Header & Hero: Top of the page structures */
+header { /* Navigation bar container */
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: space-between; /* Space out logo and button */
+    align-items: center; /* Center them vertically */
+    padding: 2rem 0; /* Vertical padding for the header */
 }
 
-.logo {
-    font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -1px;
+.logo { /* Branding logo styles */
+    font-size: 2rem; /* Large text logo */
+    font-weight: 800; /* Extra bold for impact */
+    background: linear-gradient(45deg, var(--primary), var(--secondary)); /* Dual-tone cyan/blue gradient */
+    -webkit-background-clip: text; /* Clip background to the text shape (Safari/Chrome) */
+    background-clip: text; /* Clip background to the text shape */
+    -webkit-text-fill-color: transparent; /* Make text color transparent to show the gradient behind */
+    letter-spacing: -1px; /* Tighter letter spacing for a modern look */
 }
 
-.hero {
-    text-align: center;
-    padding: 6rem 0;
-    position: relative;
+.hero { /* Main introductory section */
+    text-align: center; /* Center all hero contents */
+    padding: 6rem 0; /* Generous vertical spacing */
+    position: relative; /* Context for any absolute child elements */
 }
 
-.hero h1 {
-    font-size: 5rem;
-    font-weight: 900;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(to bottom, #fff, #888);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1.1;
+.hero h1 { /* Main eye-catching headline */
+    font-size: 5rem; /* Massive font size */
+    font-weight: 900; /* Heaviest font weight available */
+    margin-bottom: 1.5rem; /* Space below the heading */
+    background: linear-gradient(to bottom, #fff, #888); /* Subtle silver/white vertical gradient */
+    -webkit-background-clip: text; /* Clip to text */
+    background-clip: text; /* Clip to text */
+    -webkit-text-fill-color: transparent; /* Show the silver gradient */
+    line-height: 1.1; /* Tighter leading for stack-ability */
 }
 
-.hero p {
-    font-size: 1.4rem;
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 0 auto 3rem;
+.hero p { /* Secondary descriptive text in hero */
+    font-size: 1.4rem; /* Larger than body text */
+    color: var(--text-muted); /* Use muted grey for less visual weight */
+    max-width: 700px; /* Limit width for easier reading */
+    margin: 0 auto 3rem; /* Center and add space below */
 }
 
-.cta-button {
-    display: inline-block;
-    padding: 1.2rem 3rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: #000;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    border-radius: 50px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+.cta-button { /* Primary 'Call to Action' button style */
+    display: inline-block; /* Treat like a block but size to content */
+    padding: 1.2rem 3rem; /* Large, clickable area */
+    font-size: 1.1rem; /* Clear text */
+    font-weight: 700; /* Bold text */
+    text-decoration: none; /* Remove default link underlining */
+    color: #000; /* Contrast black text against bright background */
+    background: linear-gradient(45deg, var(--primary), var(--secondary)); /* Shiny cyan gradient background */
+    border-radius: 50px; /* Fully rounded pill shape */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth, bouncy animation */
+    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3); /* Glowing shadow effect */
 }
 
-.cta-button:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.5);
+.cta-button:hover { /* Hover interaction for buttons */
+    transform: translateY(-5px) scale(1.05); /* Move up and slightly grow when hovered for feedback */
+    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.5); /* Intensify the glow on hover */
 }
 
-/* Glass Cards */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 4rem;
+/* Glass Cards: Stylized information panels with a frosted glass effect */
+.card-grid { /* Grid container for the feature cards */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns that wrap automatically */
+    gap: 2rem; /* Consistent spacing between cards */
+    margin-top: 4rem; /* Space above the card section */
 }
 
-.glass-card {
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 2.5rem;
-    transition: all 0.3s ease;
+.glass-card { /* Individual card styling */
+    background: var(--glass); /* Use the faint white glass background variable */
+    backdrop-filter: blur(12px); /* Apply the iconic frosted glass blur effect */
+    -webkit-backdrop-filter: blur(12px); /* Support blur for Safari */
+    border: 1px solid var(--glass-border); /* Add a crisp, thin border to define the edge */
+    border-radius: 24px; /* Rounded corners for a friendly, modern feel */
+    padding: 2.5rem; /* Generous internal breathing room */
+    transition: all 0.3s ease; /* Smooth transition for hover animations */
 }
 
-.glass-card:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 242, 254, 0.3);
-    transform: translateY(-10px);
+.glass-card:hover { /* Hover interaction for cards */
+    background: rgba(255, 255, 255, 0.06); /* Slightly increase opacity to 'highlight' the card */
+    border-color: rgba(255, 242, 254, 0.3); /* Brighten the border on hover */
+    transform: translateY(-10px); /* Lift the card up for a tactile feel */
 }
 
-.glass-card i {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    display: block;
-    background: linear-gradient(45deg, var(--accent), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.glass-card i { /* Icon styling inside the card */
+    font-size: 2.5rem; /* Large icon size */
+    margin-bottom: 1.5rem; /* Space between icon and title */
+    display: block; /* Ensure it takes its own line */
+    background: linear-gradient(45deg, var(--accent), var(--secondary)); /* Vibrant icon gradient */
+    -webkit-background-clip: text; /* Clip to icon shape */
+    background-clip: text; /* Clip to icon shape */
+    -webkit-text-fill-color: transparent; /* Show the gradient color */
 }
 
-.glass-card h3 {
-     font-size: 1.5rem;
-     margin-bottom: 1rem;
+.glass-card h3 { /* Card title styling */
+     font-size: 1.5rem; /* Medium-large title */
+     margin-bottom: 1rem; /* Space below the title */
 }
 
-.glass-card p {
-    color: var(--text-muted);
+.glass-card p { /* Card description text styling */
+    color: var(--text-muted); /* Muted text to keep focus on the title */
 }
 
-/* Leaderboard Section */
-.leaderboard {
-    margin-top: 8rem;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 32px;
-    padding: 4rem;
-    text-align: center;
+/* Leaderboard Section: The data-heavy portion of the page */
+.leaderboard { /* Container for the high scores list */
+    margin-top: 8rem; /* Large separation from the feature cards */
+    background: var(--glass); /* Consistent glass background */
+    border: 1px solid var(--glass-border); /* Consistent glass border */
+    border-radius: 32px; /* Smoother, larger corners for the table pool */
+    padding: 4rem; /* Deep padding for a premium, spacious look */
+    text-align: center; /* Center the 'Global Leaderboard' heading */
 }
 
-.leaderboard h2 {
-    font-size: 3rem;
-    margin-bottom: 3rem;
+.leaderboard h2 { /* Heading for the leaderboard */
+    font-size: 3rem; /* Large, authoritative heading */
+    margin-bottom: 3rem; /* Space before the table starts */
 }
 
-.score-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+.score-table { /* Styling for the dynamically generated table */
+    width: 100%; /* Take up the full container width */
+    border-collapse: collapse; /* Ensure clean, single-pixel borders */
+    margin-top: 1rem; /* Space above table */
 }
 
-.score-table th {
-    text-align: left;
-    padding: 1.5rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    border-bottom: 1px solid var(--glass-border);
+.score-table th { /* Table header cells */
+    text-align: left; /* Align text to the left for better scanning */
+    padding: 1.5rem; /* Spacious cells */
+    color: var(--text-muted); /* Muted headers */
+    font-weight: 500; /* Medium weight for headers */
+    border-bottom: 1px solid var(--glass-border); /* Visual line separating headers from data */
 }
 
-.score-table td {
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 1.1rem;
+.score-table td { /* Table data cells */
+    padding: 1.5rem; /* Match header padding */
+    border-bottom: 1px solid rgba(255,255,255,0.05); /* Faint separator lines between rows */
+    font-size: 1.1rem; /* Clear data text */
 }
 
-.rank-1 { color: #ffd700; font-weight: 800; }
-.rank-2 { color: #c0c0c0; font-weight: 800; }
-.rank-3 { color: #cd7f32; font-weight: 800; }
+/* Rank Coloring: Visual rewards for the top 3 players */
+.rank-1 { color: #ffd700; font-weight: 800; } /* Gold color for first place */
+.rank-2 { color: #c0c0c0; font-weight: 800; } /* Silver color for second place */
+.rank-3 { color: #cd7f32; font-weight: 800; } /* Bronze color for third place */
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 4rem 0;
-    border-top: 1px solid var(--glass-border);
-    margin-top: 8rem;
-    color: var(--text-muted);
+/* Footer: Final information at the bottom of the scroll */
+footer { /* Footer container */
+    text-align: center; /* Centered credits */
+    padding: 4rem 0; /* Vertical padding */
+    border-top: 1px solid var(--glass-border); /* Top border to separate from main content */
+    margin-top: 8rem; /* Final separation from leaderboard */
+    color: var(--text-muted); /* Subdued footer text */
 }
 
-@media (max-width: 768px) {
-    .hero h1 { font-size: 3rem; }
-    .hero p { font-size: 1.1rem; }
-    .leaderboard { padding: 2rem; }
+/* Media Queries: Responsive adjustments for mobile and tablets */
+@media (max-width: 768px) { /* Triggered on screens smaller than 768px (tablets/phones) */
+    .hero h1 { font-size: 3rem; } /* Reduce heading size for small screens */
+    .hero p { font-size: 1.1rem; } /* Reduce hero paragraph size */
+    .leaderboard { padding: 2rem; } /* Tighten leaderboard padding */
 }
